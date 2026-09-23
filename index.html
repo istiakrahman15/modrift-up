@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+<title>Get Free Key</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#17181B;
+  --panel:#1F2023;
+  --panel-2:#26272B;
+  --recess:#101113;
+  --line:rgba(255,255,255,.09);
+  --line-strong:rgba(255,255,255,.16);
+  --brass:#C79A49;
+  --brass-soft:rgba(199,154,73,.16);
+  --led:#5FBF77;
+  --err:#E2574C;
+  --text:#EDEAE2;
+  --muted:#8B8880;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{height:100%;overflow-x:hidden;}
+body{
+  font-family:'Space Grotesk',system-ui,sans-serif;
+  background:var(--bg);color:var(--text);
+  min-height:100vh;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(ellipse at 50% -10%, rgba(199,154,73,.07), transparent 55%),
+    repeating-linear-gradient(115deg, rgba(255,255,255,.015) 0px, rgba(255,255,255,.015) 1px, transparent 1px, transparent 5px);
+  background-attachment:fixed;
+}
+
+/* ---------- STAGE ---------- */
+.stage{position:relative;z-index:5;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;max-width:100vw;
+  padding:28px 16px;
+  padding-top:calc(28px + env(safe-area-inset-top, 0px));
+  padding-bottom:calc(28px + env(safe-area-inset-bottom, 0px));
+  padding-left:calc(16px + env(safe-area-inset-left, 0px));
+  padding-right:calc(16px + env(safe-area-inset-right, 0px));}
+.card-shell{position:relative;width:100%;max-width:480px;}
+
+.card{position:relative;
+  background:linear-gradient(180deg,var(--panel),#1B1C1F);
+  border:1px solid var(--line);
+  border-radius:20px;padding:30px 26px 24px;
+  box-shadow:0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.03);
+  text-align:center;}
+
+.rivet{position:absolute;width:7px;height:7px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#3a3b3f,#0c0c0e 70%);
+  box-shadow:0 1px 0 rgba(255,255,255,.06);}
+.rivet.tl{top:12px;left:12px;} .rivet.tr{top:12px;right:12px;}
+.rivet.bl{bottom:12px;left:12px;} .rivet.br{bottom:12px;right:12px;}
+
+.status-row{display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:22px;}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--led);box-shadow:0 0 6px var(--led);animation:ledBlink 2.2s ease-in-out infinite;}
+@keyframes ledBlink{0%,100%{opacity:1;}50%{opacity:.35;}}
+.status-text{font-size:11.5px;color:var(--muted);font-weight:500;}
+
+.logo-wrap{position:relative;width:64px;height:64px;margin:0 auto 18px;}
+.logo{position:relative;width:100%;height:100%;border-radius:14px;
+  background:linear-gradient(155deg,var(--panel-2),#1a1b1e);
+  border:1px solid var(--line-strong);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;font-weight:700;letter-spacing:.5px;color:var(--brass);
+  background-size:cover;background-position:center;overflow:hidden;}
+.logo::after{content:"";position:absolute;inset:0;border-radius:14px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06), inset 0 -12px 20px rgba(0,0,0,.35);pointer-events:none;}
+
+.title{position:relative;font-size:22px;font-weight:700;letter-spacing:-.2px;color:var(--text);}
+.subtitle{position:relative;font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;font-weight:400;}
+
+.divider{position:relative;height:1px;margin:22px 0;background:var(--line);}
+
+.info-row{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px;}
+.info-chip{background:var(--recess);border:1px solid var(--line);
+  border-radius:12px;padding:11px 10px;}
+.ic-label{font-size:10px;color:var(--muted);font-weight:500;}
+.ic-val{font-size:14px;font-weight:700;margin-top:4px;color:var(--text);font-family:'JetBrains Mono',monospace;}
+
+.panel{position:relative;}
+.panel.hide{display:none;}
+
+.gen-btn{position:relative;width:100%;padding:16px 20px;border:none;border-radius:13px;
+  cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;letter-spacing:.2px;
+  color:#161310;overflow:hidden;
+  background:linear-gradient(180deg,#D8AC5C,var(--brass));
+  box-shadow:0 1px 0 rgba(255,255,255,.25) inset, 0 10px 24px rgba(199,154,73,.22);
+  transition:transform .18s, box-shadow .18s;}
+.gen-btn:hover{transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.25) inset, 0 14px 28px rgba(199,154,73,.3);}
+.gen-btn:active{transform:translateY(0);}
+.btn-text{position:relative;}
+.btn-spinner{display:none;position:absolute;left:50%;top:50%;width:18px;height:18px;
+  margin:-9px 0 0 -9px;border:2.5px solid rgba(22,19,16,.25);border-top-color:#161310;
+  border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.gen-btn.loading .btn-text{opacity:0;}
+.gen-btn.loading .btn-spinner{display:block;}
+.gen-btn.loading{pointer-events:none;opacity:.92;}
+.note{font-size:11.5px;color:var(--muted);margin-top:12px;line-height:1.6;}
+
+.key-box{position:relative;display:none;margin-top:4px;}
+.key-box.show{display:block;}
+.key-label{font-size:10.5px;color:var(--muted);font-weight:500;margin-bottom:9px;text-align:left;}
+.key-value{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;letter-spacing:1.5px;
+  color:var(--led);padding:17px 14px;border-radius:12px;
+  background:var(--recess);border:1px solid var(--line);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.4);
+  word-break:break-all;}
+.key-actions{display:flex;gap:10px;margin-top:12px;}
+.copy-btn,.login-btn{flex:1;padding:12px 10px;border-radius:11px;border:none;cursor:pointer;
+  font-family:inherit;font-size:12px;font-weight:600;text-decoration:none;
+  display:flex;align-items:center;justify-content:center;transition:all .18s;}
+.copy-btn{background:var(--panel-2);border:1px solid var(--line-strong);color:var(--text);}
+.login-btn{background:transparent;border:1px solid var(--line);color:var(--muted);}
+.copy-btn:hover,.login-btn:hover{border-color:var(--brass);color:var(--brass);}
+
+.cooldown{position:relative;display:none;margin-top:4px;}
+.cooldown.show{display:block;}
+.cd-title{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:13px;}
+.cd-timer{display:flex;align-items:center;justify-content:center;gap:6px;}
+.cd-unit{background:var(--recess);border:1px solid var(--line);border-radius:11px;
+  padding:9px 6px;min-width:56px;flex:1;}
+.cd-num{font-family:'JetBrains Mono',monospace;font-size:19px;font-weight:700;color:var(--brass);}
+.cd-lbl{font-size:8.5px;letter-spacing:1px;color:var(--muted);font-weight:600;margin-top:3px;}
+.cd-sep{color:var(--line-strong);font-weight:700;font-size:15px;}
+
+.footer{position:relative;margin-top:22px;font-size:10.5px;
+  color:var(--muted);font-weight:400;}
+
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(120px);
+  padding:12px 22px;border-radius:11px;font-size:12.5px;font-weight:600;z-index:999;
+  background:var(--led);color:#101913;
+  box-shadow:0 14px 34px rgba(0,0,0,.4);
+  transition:transform .35s cubic-bezier(.22,1,.36,1);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast.err{background:var(--err);color:#1c0d0b;}
+
+.confetti{position:fixed;width:7px;height:7px;border-radius:2px;pointer-events:none;z-index:998;
+  animation:confettiFly 1.2s cubic-bezier(.2,.7,.4,1) forwards;}
+@keyframes confettiFly{
+  0%{transform:translate(-50%,-50%) scale(0) rotate(0deg);opacity:1;}
+  100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1) rotate(var(--rot));opacity:0;}}
+
+html{-webkit-text-size-adjust:100%;}
+.stage{overflow-x:hidden;}
+
+@media(max-width:600px){
+  .card{padding:24px 16px 18px;border-radius:16px;}
+  .title{font-size:18px;}
+  .subtitle{font-size:12.5px;}
+  .key-value{font-size:13px;letter-spacing:.8px;padding:15px 12px;}
+  .cd-unit{min-width:0;padding:7px 3px;}
+  .cd-num{font-size:16px;}
+  .cd-sep{font-size:12px;}
+  .info-chip{padding:10px 8px;}
+  .gen-btn{padding:15px 18px;font-size:13.5px;}
+  .key-actions{gap:8px;}
+  .copy-btn,.login-btn{font-size:11px;padding:12px 6px;}
+}
+@media(max-width:340px){
+  .card{padding:20px 12px 16px;}
+  .cd-timer{gap:3px;}
+  .cd-sep{display:none;}
+}
+
+/* ---------- WAIT GATE (15s, ad-supported) ---------- */
+.wait-gate{position:relative;text-align:center;padding:4px 0 2px;}
+.wait-title{font-size:11px;color:var(--muted);font-weight:500;}
+.wait-track{position:relative;height:6px;border-radius:4px;background:var(--recess);
+  border:1px solid var(--line);margin:14px 0 8px;overflow:hidden;}
+.wait-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--brass-soft),var(--brass));
+  border-radius:4px;transition:width 1s linear;}
+.wait-num{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--brass);}
+.wait-sub{font-size:11px;color:var(--muted);margin:6px 0 14px;line-height:1.6;}
+
+/* ---------- AD SLOTS (never allowed to force page-wide horizontal scroll) ---------- */
+.ad-slot{position:relative;display:flex;align-items:center;justify-content:center;
+  margin:14px auto;max-width:100%;overflow-x:auto;overflow-y:hidden;min-height:20px;
+  -webkit-overflow-scrolling:touch;}
+.ad-slot::-webkit-scrollbar{height:0;}
+.ad-label{font-size:9px;color:var(--muted);text-align:center;margin-bottom:6px;font-weight:500;}
+.ad-top-wrap{position:relative;z-index:5;display:flex;justify-content:center;padding-top:10px;
+  width:100%;max-width:100vw;overflow-x:hidden;}
+.ad-728{display:block;}
+.ad-320{display:none;}
+/* switch to the mobile banner well before the 728-wide unit could overflow the screen */
+@media(max-width:768px){
+  .ad-728{display:none;}
+  .ad-320{display:block;}
+}
+.ad-side{position:fixed;top:50%;transform:translateY(-50%);z-index:3;}
+.ad-side.left{left:14px;}
+.ad-side.right{right:14px;}
+/* below desktop width there's no room for a fixed side rail — instead of
+   hiding these units (losing the impression entirely), drop them into the
+   normal page flow, centered, so every visitor still sees them */
+@media(max-width:1150px){
+  .ad-side{
+    position:static;top:auto;transform:none;
+    display:flex;justify-content:center;width:100%;
+    margin:12px auto;max-width:100vw;overflow-x:auto;
+  }
+}
+.ad-below-card{position:relative;width:100%;max-width:480px;margin:16px auto 0;
+  padding:0 8px;display:flex;flex-direction:column;align-items:center;gap:14px;}
+/* the 468px-wide banner is wider than most Android screens — scale it down
+   to fit instead of hiding it, so it still counts as a shown impression */
+@media(max-width:540px){
+  .ad-below-card .ad-slot:nth-child(2){transform:scale(.78);margin:-6px 0;}
+}
+@media(max-width:400px){
+  .ad-below-card .ad-slot:nth-child(2){transform:scale(.66);margin:-10px 0;}
+}
+@media(max-width:340px){
+  .ad-below-card .ad-slot:nth-child(2){transform:scale(.56);margin:-13px 0;}
+}
+.sponsor-link{position:relative;display:inline-block;margin-top:10px;font-size:10.5px;
+  color:var(--muted);text-decoration:underline;text-underline-offset:3px;}
+.sponsor-link:hover{color:var(--brass);}
+
+/* ---------- ADBLOCK WALL ---------- */
+.adblock-wall{position:fixed;inset:0;z-index:5000;display:none;
+  align-items:center;justify-content:center;padding:20px;
+  background:rgba(9,9,10,.92);backdrop-filter:blur(6px);}
+.adblock-wall.show{display:flex;}
+.adblock-box{max-width:380px;width:100%;background:var(--panel);border:1px solid var(--line-strong);
+  border-radius:18px;padding:28px 24px;text-align:center;
+  box-shadow:0 30px 70px rgba(0,0,0,.6);}
+.adblock-icon{width:46px;height:46px;margin:0 auto 16px;border-radius:12px;
+  background:var(--recess);border:1px solid var(--line);
+  display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--err);}
+.adblock-title{font-size:16px;font-weight:700;color:var(--text);}
+.adblock-text{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.7;}
+.adblock-btn{margin-top:18px;width:100%;padding:13px;border:none;border-radius:11px;
+  background:var(--brass);color:#161310;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;}
+</style>
+</head>
+<body>
+
+<div class="ad-top-wrap">
+  <div class="ad-728">
+    <script>
+      atOptions = { 'key' : 'a856411796f884bc75a71ab18b792201', 'format' : 'iframe', 'height' : 90, 'width' : 728, 'params' : {} };
+    </script>
+    <script src="https://www.highrevenueformat.com/a856411796f884bc75a71ab18b792201/invoke.js"></script>
+  </div>
+  <div class="ad-320">
+    <script>
+      atOptions = { 'key' : '82d3a63527440da8cbd2e5019cbf3c16', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+    </script>
+    <script src="https://www.highrevenueformat.com/82d3a63527440da8cbd2e5019cbf3c16/invoke.js"></script>
+  </div>
+</div>
+
+<div class="ad-side left">
+  <script>
+    atOptions = { 'key' : 'f78f84fadaded06ec26380805d1c8f7c', 'format' : 'iframe', 'height' : 300, 'width' : 160, 'params' : {} };
+  </script>
+  <script src="https://www.highrevenueformat.com/f78f84fadaded06ec26380805d1c8f7c/invoke.js"></script>
+</div>
+<div class="ad-side right">
+  <script>
+    atOptions = { 'key' : '7437c00d3110b06dff78aadf90c74b7d', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
+  </script>
+  <script src="https://www.highrevenueformat.com/7437c00d3110b06dff78aadf90c74b7d/invoke.js"></script>
+</div>
+
+<div class="stage">
+  <div class="card-shell">
+    <div class="card">
+      <div class="rivet tl"></div><div class="rivet tr"></div>
+      <div class="rivet bl"></div><div class="rivet br"></div>
+
+      <div class="status-row"><span class="status-dot"></span><span class="status-text">Key generator online</span></div>
+
+      <div class="logo-wrap">
+        <div class="logo" id="logo">FX</div>
+      </div>
+
+      <h1 class="title" id="title">Get your key</h1>
+      <p class="subtitle" id="subtitle">Generate your free license key instantly</p>
+
+      <div class="divider"></div>
+
+      <div class="info-row">
+        <div class="info-chip">
+          <div class="ic-label">Key duration</div>
+          <div class="ic-val" id="infoDur">24 hours</div>
+        </div>
+        <div class="info-chip">
+          <div class="ic-label">Cooldown</div>
+          <div class="ic-val" id="infoCd">24 hours</div>
+        </div>
+      </div>
+
+      <div class="panel" id="panel">
+
+        <div class="wait-gate" id="waitGate">
+          <div class="wait-title">Preparing your key</div>
+          <div class="wait-track"><div class="wait-fill" id="waitFill"></div></div>
+          <div class="wait-num" id="waitNum">15s</div>
+          <div class="wait-sub">This keeps the service free</div>
+          <div class="ad-label">Advertisement</div>
+          <div class="ad-slot">
+            <script async="async" data-cfasync="false" src="https://pl31470325.profitableratecpmnetwork.com/5ed34ac8257ab50105377a4bc6da074e/invoke.js"></script>
+            <div id="container-5ed34ac8257ab50105377a4bc6da074e"></div>
+          </div>
+        </div>
+
+        <button class="gen-btn" id="genBtn" style="display:none">
+          <span class="btn-spinner"></span>
+          <span class="btn-text" id="genBtnText">Generate key</span>
+        </button>
+        <div class="note" id="note" style="display:none">One key per device per cooldown period</div>
+      </div>
+
+      <div class="key-box" id="keyBox">
+        <div class="key-label">Your license key</div>
+        <div class="key-value" id="keyValue"></div>
+        <div class="key-actions">
+          <button class="copy-btn" id="copyBtn">Copy key</button>
+          <a class="login-btn" id="loginBtn" href="#">Go to login</a>
+        </div>
+      </div>
+
+      <div class="wait-gate" id="unlockGate" style="display:none;margin-top:14px;">
+        <div class="wait-title">Unlocking login</div>
+        <div class="wait-track"><div class="wait-fill" id="unlockFill"></div></div>
+        <div class="wait-num" id="unlockNum">6s</div>
+        <div class="wait-sub">Taking you to login...</div>
+        <div class="ad-label">Advertisement</div>
+        <div class="ad-slot">
+          <script>
+            atOptions = { 'key' : '82d3a63527440da8cbd2e5019cbf3c16', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+          </script>
+          <script src="https://www.highrevenueformat.com/82d3a63527440da8cbd2e5019cbf3c16/invoke.js"></script>
+        </div>
+      </div>
+
+      <div class="cooldown" id="cooldown">
+        <div class="cd-title">Next key available in</div>
+        <div class="cd-timer">
+          <div class="cd-unit"><div class="cd-num" id="cdD">00</div><div class="cd-lbl">DAYS</div></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><div class="cd-num" id="cdH">00</div><div class="cd-lbl">HRS</div></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><div class="cd-num" id="cdM">00</div><div class="cd-lbl">MIN</div></div>
+          <div class="cd-sep">:</div>
+          <div class="cd-unit"><div class="cd-num" id="cdS">00</div><div class="cd-lbl">SEC</div></div>
+        </div>
+      </div>
+
+      <div class="footer" id="footer">Encrypted · Secure Connection</div>
+
+      <a class="sponsor-link" id="sponsorLink" href="https://www.profitableratecpmnetwork.com/piqd2yautz?key=a2d8f15839c3b17c5dfbe32e2ee9abee" target="_blank" rel="noopener noreferrer sponsored">Sponsored Offer</a>
+
+    </div>
+  </div>
+
+  <div class="ad-below-card">
+    <div class="ad-slot">
+      <script>
+        atOptions = { 'key' : 'b6794e4173324893c70373bf6560819d', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+      </script>
+      <script src="https://www.highrevenueformat.com/b6794e4173324893c70373bf6560819d/invoke.js"></script>
+    </div>
+    <div class="ad-slot">
+      <script>
+        atOptions = { 'key' : 'ebdfa489f6790e15199d20353b77970d', 'format' : 'iframe', 'height' : 60, 'width' : 468, 'params' : {} };
+      </script>
+      <script src="https://www.highrevenueformat.com/ebdfa489f6790e15199d20353b77970d/invoke.js"></script>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div class="adblock-wall" id="adblockWall">
+  <div class="adblock-box">
+    <div class="adblock-icon">!</div>
+    <div class="adblock-title">Ad blocker detected</div>
+    <div class="adblock-text">This key generator is free because of ads. Please disable your ad blocker for this site and reload the page to continue.</div>
+    <button class="adblock-btn" id="adblockRetryBtn">I've disabled it — Reload</button>
+  </div>
+</div>
+
+<!-- Adsterra Social Bar -->
+<script src="https://pl31470327.profitableratecpmnetwork.com/7f/4e/d5/7f4ed509fdbedaeeed590a6fef10023c.js"></script>
+<!-- Adsterra Popunder -->
+<script src="https://pl31470324.profitableratecpmnetwork.com/ac/e1/50/ace150ff019b54b543ca52c1be40411a.js"></script>
+
+<script>
+/* ================= CONFIG ================= */
+const DB_URL = "https://modrift-e970b-default-rtdb.firebaseio.com";
+
+const DEFAULT_CFG = {
+  enabled:true,
+  title:"Get your key",
+  subtitle:"Generate your free license key instantly",
+  description:"One key per device per cooldown period.",
+  keyPrefix:"MDT",
+  keyHours:24,
+  cooldownHours:24,
+  buttonText:"Generate key",
+  footer:"Encrypted · Secure Connection",
+  logoUrl:"",              /* <-- NEW: logo URL from admin */
+  url:""
+};
+
+let CFG = {...DEFAULT_CFG};
+let claim = null;
+let cooldownInt = null;
+let generating = false;
+
+/* ================= DEVICE ID ================= */
+function getDeviceId(){
+  let id = localStorage.getItem("fx_device_id");
+  if(!id){
+    id = "DEV-" + Math.random().toString(36).slice(2,8).toUpperCase()
+       + "-" + Date.now().toString(36).toUpperCase();
+    localStorage.setItem("fx_device_id", id);
+  }
+  return id;
+}
+const DEVICE_ID = getDeviceId();
+
+/* ================= FIREBASE ================= */
+async function fbGet(p){
+  try{ const r = await fetch(DB_URL + p + ".json"); return await r.json(); }
+  catch(e){ return null; }
+}
+async function fbPut(p,d){
+  try{
+    const r = await fetch(DB_URL + p + ".json",{
+      method:"PUT", headers:{"Content-Type":"application/json"}, body:JSON.stringify(d)
+    });
+    return await r.json();
+  }catch(e){ return null; }
+}
+
+/* ================= HELPERS ================= */
+const $ = id => document.getElementById(id);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+let toastTimer;
+function toast(msg, err){
+  const t = $("toast");
+  t.textContent = msg;
+  t.className = "toast show" + (err ? " err" : "");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>{ t.className = "toast"; }, 2600);
+}
+
+function setNum(id, val){
+  const el = $(id);
+  if(el.textContent === val) return;
+  el.textContent = val;
+}
+
+function makeKey(prefix){
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let s = "";
+  for(let i=0;i<9;i++){
+    if(i > 0 && i % 3 === 0) s += "-";
+    s += chars[Math.floor(Math.random()*chars.length)];
+  }
+  return (prefix || "MDT").toUpperCase() + "-" + s;
+}
+
+/* ================= APPLY CONFIG ================= */
+function applyConfig(){
+  $("title").textContent    = CFG.title;
+  $("subtitle").textContent = CFG.subtitle;
+  $("infoDur").textContent  = CFG.keyHours + " hour" + (CFG.keyHours > 1 ? "s" : "");
+  $("infoCd").textContent   = CFG.cooldownHours + " hour" + (CFG.cooldownHours > 1 ? "s" : "");
+  $("genBtnText").textContent = CFG.buttonText;
+  $("note").textContent     = CFG.description;
+  $("footer").textContent   = CFG.footer;
+  document.title            = CFG.title;
+  if(CFG.url) $("loginBtn").href = CFG.url;
+
+  /* ---- LOGO ---- */
+  const logoEl = $("logo");
+  const url = (CFG.logoUrl || "").trim();
+  if(url){
+    logoEl.style.backgroundImage = "url('" + url + "')";
+    logoEl.textContent = "";
+    logoEl.style.fontSize = "0";
+  } else {
+    logoEl.style.backgroundImage = "";
+    logoEl.style.fontSize = "20px";
+    logoEl.textContent = (CFG.keyPrefix || "FX").slice(0,2).toUpperCase();
+  }
+}
+
+/* ================= STATE ================= */
+let waitGateInt = null;
+const WAIT_SECONDS = 15;
+
+function startWaitGate(){
+  const gate = $("waitGate");
+  const btn  = $("genBtn");
+  const note = $("note");
+  const fill = $("waitFill");
+  const num  = $("waitNum");
+
+  gate.style.display = "block";
+  btn.style.display = "none";
+  note.style.display = "none";
+
+  if(waitGateInt) clearInterval(waitGateInt);
+  let left = WAIT_SECONDS;
+  num.textContent = left + "s";
+  fill.style.width = "0%";
+
+  waitGateInt = setInterval(()=>{
+    left--;
+    if(left <= 0){
+      clearInterval(waitGateInt);
+      waitGateInt = null;
+      gate.style.display = "none";
+      btn.style.display = "";
+      note.style.display = "";
+      return;
+    }
+    num.textContent = left + "s";
+    fill.style.width = (100 * (1 - left / WAIT_SECONDS)) + "%";
+  }, 1000);
+}
+
+function showPanel(){
+  $("panel").classList.remove("hide");
+  $("cooldown").classList.remove("show");
+  $("keyBox").classList.remove("show");
+  startWaitGate();
+}
+
+function showKey(code, animate){
+  const box = $("keyBox");
+  const val = $("keyValue");
+  box.classList.add("show");
+  if(animate){
+    val.textContent = "";
+    let i = 0;
+    const iv = setInterval(()=>{
+      val.textContent += code[i];
+      i++;
+      if(i >= code.length) clearInterval(iv);
+    }, 42);
+  } else {
+    val.textContent = code;
+  }
+}
+
+function startCooldown(nextAt){
+  $("panel").classList.add("hide");
+  $("cooldown").classList.add("show");
+
+  if(cooldownInt) clearInterval(cooldownInt);
+
+  const tick = () => {
+    const diff = nextAt - Date.now();
+    if(diff <= 0){
+      clearInterval(cooldownInt);
+      cooldownInt = null;
+      showPanel();
+      toast("You can generate a new key now!");
+      return;
+    }
+    const s = Math.floor(diff/1000);
+    setNum("cdD", String(Math.floor(s/86400)).padStart(2,"0"));
+    setNum("cdH", String(Math.floor((s%86400)/3600)).padStart(2,"0"));
+    setNum("cdM", String(Math.floor((s%3600)/60)).padStart(2,"0"));
+    setNum("cdS", String(s%60).padStart(2,"0"));
+  };
+  tick();
+  cooldownInt = setInterval(tick, 1000);
+}
+
+/* ================= CONFETTI ================= */
+function burstConfetti(){
+  const colors = ["#C79A49","#5FBF77","#EDEAE2","#8F6B2B"];
+  const r = $("genBtn").getBoundingClientRect();
+  const cx = r.left + r.width/2;
+  const cy = r.top + r.height/2;
+  for(let i=0;i<40;i++){
+    const p = document.createElement("div");
+    p.className = "confetti";
+    p.style.left = cx + "px";
+    p.style.top  = cy + "px";
+    p.style.background = colors[i % colors.length];
+    const ang  = Math.random()*Math.PI*2;
+    const dist = 80 + Math.random()*200;
+    p.style.setProperty("--dx", (Math.cos(ang)*dist) + "px");
+    p.style.setProperty("--dy", (Math.sin(ang)*dist) + "px");
+    p.style.setProperty("--rot", (Math.random()*720-360) + "deg");
+    p.style.animationDelay = (Math.random()*0.16) + "s";
+    document.body.appendChild(p);
+    setTimeout(()=>p.remove(), 1600);
+  }
+}
+
+/* ================= CHECK STATE ================= */
+async function checkState(){
+  claim = await fbGet("/getkey_claims/" + DEVICE_ID);
+
+  if(claim && claim.nextAt && Date.now() < claim.nextAt){
+    if(claim.key) showKey(claim.key, false);
+    startCooldown(claim.nextAt);
+  } else {
+    showPanel();
+  }
+}
+
+/* ================= GENERATE ================= */
+async function generate(){
+  if(generating) return;
+  generating = true;
+
+  const btn = $("genBtn");
+  btn.classList.add("loading");
+  $("genBtnText").textContent = "Generating...";
+
+  const fresh = await fbGet("/getkey_claims/" + DEVICE_ID);
+  if(fresh && fresh.nextAt && Date.now() < fresh.nextAt){
+    claim = fresh;
+    generating = false;
+    btn.classList.remove("loading");
+    $("genBtnText").textContent = CFG.buttonText;
+    if(fresh.key) showKey(fresh.key, false);
+    startCooldown(fresh.nextAt);
+    toast("Cooldown active — please wait", true);
+    return;
+  }
+
+  await sleep(1300);
+
+  let code = null;
+  for(let i=0;i<6;i++){
+    const c = makeKey(CFG.keyPrefix);
+    const exists = await fbGet("/keys/" + c);
+    if(!exists){ code = c; break; }
+  }
+  if(!code){
+    generating = false;
+    btn.classList.remove("loading");
+    $("genBtnText").textContent = CFG.buttonText;
+    toast("Generation failed, try again", true);
+    return;
+  }
+
+  const now    = Date.now();
+  const cdMs   = CFG.cooldownHours * 3600 * 1000;
+
+  await fbPut("/getkey_claims/" + DEVICE_ID, {
+    deviceId: DEVICE_ID,
+    key: code,
+    lastClaimAt: now,
+    nextAt: now + cdMs,
+    totalClaims: ((fresh && fresh.totalClaims) || 0) + 1,
+    ua: navigator.userAgent.slice(0,140)
+  });
+
+  await fbPut("/keys/" + code, {
+    status: "active",
+    duration: { value: CFG.keyHours, unit: "hours" },
+    deviceLimit: 1,
+    devices: {},
+    activated: false,
+    startedAt: 0,
+    expiresAt: 0,
+    createdAt: now,
+    notes: "Auto via Get Key (" + DEVICE_ID + ")"
+  });
+
+  claim = { key: code, lastClaimAt: now, nextAt: now + cdMs };
+
+  generating = false;
+  btn.classList.remove("loading");
+  $("genBtnText").textContent = CFG.buttonText;
+
+  showKey(code, true);
+  burstConfetti();
+  toast("Key generated successfully!");
+  startCooldown(now + cdMs);
+}
+
+/* ================= COPY ================= */
+function copyKey(){
+  const code = $("keyValue").textContent.trim();
+  if(!code) return;
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(code)
+      .then(()=>toast("Key copied!"))
+      .catch(()=>fallbackCopy(code));
+  } else {
+    fallbackCopy(code);
+  }
+}
+function fallbackCopy(text){
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.style.position = "fixed";
+  ta.style.top = "-9999px";
+  document.body.appendChild(ta);
+  ta.select();
+  ta.setSelectionRange(0, text.length);
+  try{
+    document.execCommand("copy");
+    toast("Key copied!");
+  }catch(e){
+    prompt("Copy your key:", text);
+  }
+  document.body.removeChild(ta);
+}
+
+/* ================= ADBLOCK DETECTION ================= */
+function showAdblockWall(){
+  $("adblockWall").classList.add("show");
+}
+function hideAdblockWall(){
+  $("adblockWall").classList.remove("show");
+}
+
+/* Signal 1: bait element using classic ad-related class names.
+   Filter lists (EasyList etc.) hide elements matching these names via CSS,
+   usually with !important, so we set inline styles with !important too
+   and read them back after a short delay. */
+function baitCheck(){
+  return new Promise((resolve)=>{
+    const bait = document.createElement("div");
+    bait.className = "adsbox ad-banner ad-placement adsbygoogle textads banner_ad text-ad text_ad pub_300x250 ad-container";
+    bait.style.cssText = "width:1px!important;height:1px!important;position:absolute!important;left:-9999px!important;top:-9999px!important;pointer-events:none!important;";
+    bait.innerHTML = "&nbsp;";
+    document.body.appendChild(bait);
+    setTimeout(()=>{
+      let blocked = false;
+      try{
+        const cs = window.getComputedStyle(bait);
+        if(bait.offsetParent === null || bait.offsetHeight === 0 || bait.clientHeight === 0 ||
+           cs.display === "none" || cs.visibility === "hidden"){
+          blocked = true;
+        }
+      }catch(e){ blocked = true; }
+      bait.remove();
+      resolve(blocked);
+    }, 300);
+  });
+}
+
+/* Signal 2: a real request to one of the ad-network domains this page
+   actually uses. Network-level blockers (uBlock Origin, AdGuard, Brave
+   Shields, most mobile "DNS/VPN" ad blockers) block this outright, which
+   makes fetch() reject — that's a much stronger signal than DOM hiding. */
+function networkCheck(){
+  const adUrl = "https://pl31470324.profitableratecpmnetwork.com/ac/e1/50/ace150ff019b54b543ca52c1be40411a.js";
+  const attempt = fetch(adUrl, { method: "GET", mode: "no-cors", cache: "no-store" })
+    .then(()=> false)
+    .catch(()=> true);
+  const timeout = new Promise((resolve)=> setTimeout(()=> resolve(false), 2500)); /* slow network ≠ blocked */
+  return Promise.race([attempt, timeout]);
+}
+
+function checkAdblock(){
+  Promise.all([baitCheck(), networkCheck()]).then(([baitBlocked, netBlocked])=>{
+    if(baitBlocked || netBlocked){ showAdblockWall(); } else { hideAdblockWall(); }
+  });
+}
+$("adblockRetryBtn").addEventListener("click", ()=> location.reload());
+
+/* ================= INIT ================= */
+async function init(){
+  checkAdblock();
+  setInterval(checkAdblock, 5000);
+
+  const remote = await fbGet("/config/getKey");
+  if(remote){
+    CFG = Object.assign({}, DEFAULT_CFG, remote);
+  }
+  applyConfig();
+
+  if(CFG.enabled === false){
+    $("panel").innerHTML =
+      '<div style="padding:16px;border-radius:12px;background:rgba(226,87,76,.08);' +
+      'border:1px solid rgba(226,87,76,.25);color:#f0a49d;font-size:12.5px;font-weight:600;">' +
+      'Key generation is currently disabled.</div>';
+    return;
+  }
+
+  await checkState();
+
+  setInterval(async ()=>{
+    if(cooldownInt) return;
+    const c = await fbGet("/getkey_claims/" + DEVICE_ID);
+    if(c && c.nextAt && Date.now() < c.nextAt){
+      claim = c;
+      if(c.key) showKey(c.key, false);
+      startCooldown(c.nextAt);
+    }
+  }, 60000);
+}
+
+$("genBtn").addEventListener("click", generate);
+$("copyBtn").addEventListener("click", copyKey);
+
+/* ================= LOGIN UNLOCK GATE (extra ad impression before redirect) ================= */
+let unlockGateRunning = false;
+function startUnlockGate(destinationUrl){
+  if(unlockGateRunning) return;
+  unlockGateRunning = true;
+
+  const gate = $("unlockGate");
+  const fill = $("unlockFill");
+  const num  = $("unlockNum");
+  const SECS = 6;
+  let left = SECS;
+
+  gate.style.display = "block";
+  num.textContent = left + "s";
+  fill.style.width = "0%";
+
+  const iv = setInterval(()=>{
+    left--;
+    if(left <= 0){
+      clearInterval(iv);
+      if(destinationUrl && destinationUrl !== "#"){
+        window.location.href = destinationUrl;
+      }
+      return;
+    }
+    num.textContent = left + "s";
+    fill.style.width = (100 * (1 - left / SECS)) + "%";
+  }, 1000);
+}
+
+$("loginBtn").addEventListener("click", function(e){
+  const dest = $("loginBtn").getAttribute("href");
+  if(dest && dest !== "#"){
+    e.preventDefault();
+    startUnlockGate(dest);
+  }
+});
+
+init();
+</script>
+</body>
+</html>
