@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://t.me/modrift/87",
+      "permanent": false
+    }
+  ]
+}
